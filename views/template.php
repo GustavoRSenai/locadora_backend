@@ -121,12 +121,7 @@ $usuario = Auth::getUsuario();
             </div>
         </div>
 
-        <?php if ($mensagem):?>
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <?= htmlspecialchars($mensagem) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php endif; ?>
+        
 
         <!-- Formulário para adicionar novo veículo -->
         <div class="row same-height-row">
@@ -173,6 +168,7 @@ $usuario = Auth::getUsuario();
                             <div class="mb-3">
                                 <label class="form-label">Tipo de Veículo</label>
                                 <select name="tipo_calculo" class="form-select" required>
+                                    <option value="empty" disabled selected> - </option>
                                     <option value="Carro">Carro</option>
                                     <option value="Moto">Moto</option>
                                 </select>
@@ -187,6 +183,13 @@ $usuario = Auth::getUsuario();
                 </div>
             </div>
         </div>
+
+        <?php if ($mensagem):?>
+        <div class="alert alert-info alert-dismissible fade show mt-4" role="alert">
+            <?= htmlspecialchars($mensagem) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php endif; ?>
 
         <!-- Tabela de veículos cadastrados -->
         <div class="row mt-4">

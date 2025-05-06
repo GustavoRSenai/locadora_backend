@@ -1,17 +1,12 @@
 [
     {
         "username": "admin",
-        "password": "$2y$12$ye/unrEM2zAhjYkme4NtFu1ZgMbI6S4Qdg.yDNFA9a63Lg9QoqoyO",
+        "password": "$2y$12$9ww7zjSwXFlqOsKSN4xN6eSHaCmz2mqIsCVWgYXFK88ni.p/JQakS",
         "perfil": "admin"
     },
     {
         "username": "usuario",
-        "password": "$2y$12$0GvOU\/pHiOFzUvceoUDrD.Ltklzpivkdj4tee8iPC8y8jtAAxVDR6",
+        "password": "$2y$12$swCpWVQQN95FBhkkc6kZmOmMNiJvk4GUGy6aJDicy6o.FPiPhHct6",
         "perfil": "usuario"
-    },
-    {
-        "username": "Gutin",
-        "password": "$2y$12$SiE3dGcE6AWPChc6XP4WyO6hV7fnL3n5ePYjcQMSw65f8he8uHu\/O",
-        "perfil": "admin"
     }
 ]

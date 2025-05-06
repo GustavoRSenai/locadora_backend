@@ -87,11 +87,11 @@
 
         <!-- tabela para adicionar novo veiculo -->
         <div class="row same-height-row">
-        <?php if (Auth::isAdmin()): ?>
+            <?php if (Auth::isAdmin()): ?>
             <div class="col-md-6">
                 <div class="card h-100">
                     <div class="card-header">
-                        <h4>Adicionar novo veículo</h4>
+                        <h4 class="mb-0">Adicionar novo veículo</h4>
                     </div>
                     <div class="card-body">
                         <form action="post" class="needs-validation" novalidate>
@@ -121,11 +121,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <?php endif; ?>
+                <?php endif; ?>
 
-        <div class="row same-height-row">
-            <div class="col-<?= Auth::isAdmin() ? '6' : '12' ?>">
+            <div class="col-<?= Auth::isAdmin() ? 'md-6' : 'md-12' ?>">
                 <div class="card h-100">
                     <div class="card-header">
                         <h4 class="mb-0">

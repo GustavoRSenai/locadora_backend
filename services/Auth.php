@@ -3,7 +3,7 @@
 namespace Services;
 
 class Auth{ 
-    private array $usuario = [];
+    private array $usuarios = [];
 
     // Método cronstuctor
 
@@ -20,25 +20,20 @@ class Auth{
             // Lê o conteúdo do arquivo JSON e decodifica para um array
             $conteudo = json_decode(file_get_contents(ARQUIVO_USUARIOS), true);
 
-            $this->usuario = is_array($conteudo) ? $conteudo : [];
+            $this->usuarios = is_array($conteudo) ? $conteudo : [];
         } else {
             // Se o arquivo não existir, cria usuarios padrão
-            $this->usuario = [
+            $this->usuarios = [
 
                 [
                 'username' => 'admin',
-                'password' => password_hash('admin123,', PASSWORD_DEFAULT),
+                'password' => password_hash('123,', PASSWORD_DEFAULT),
                 'perfil' => 'admin',
                 ],
                 [
                 'username' => 'usuario',
-                'password' => password_hash('user123', PASSWORD_DEFAULT),
+                'password' => password_hash('123', PASSWORD_DEFAULT),
                 'perfil' => 'usuario',
-                ],
-                [
-                'username' => 'Gutin',
-                'password' => password_hash('user123', PASSWORD_DEFAULT),
-                'perfil' => 'admin',
                 ]
             ];
             $this->salvarUsuarios();
@@ -54,14 +49,14 @@ class Auth{
             mkdir($dir, 0777, true);
         }
         // Salva os usuários no arquivo JSON
-        file_put_contents(ARQUIVO_USUARIOS, json_encode($this->usuario, JSON_PRETTY_PRINT));
+        file_put_contents(ARQUIVO_USUARIOS, json_encode($this->usuarios, JSON_PRETTY_PRINT));
     }
 
     // Método para login
     public function login(string $username, string $password): bool
     {
         // Verifica se o usuário existe e a senha está correta
-        foreach ($this->usuario as $usuario) {
+        foreach ($this->usuarios as $usuario) {
             if ($usuario['username'] === $username && password_verify($password, $usuario['password'])) {
                 
                 $_SESSION['auth'] = [

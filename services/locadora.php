@@ -101,11 +101,16 @@ class Locadora {
 
     // Calcular previsão do valor de aluguel
     public function calcularPrevisaoAluguel(int $dias, string $tipo): float {
+        if ($tipo === 'empty') {
+            throw new \InvalidArgumentException("Tipo de veículo não informado.");
+        }
+    
         if ($tipo === 'Carro') {
             return (new Carro('', ''))->calcularAluguel($dias);
         } elseif ($tipo === 'Moto') {
             return (new Moto('', ''))->calcularAluguel($dias);
         }
+    
         throw new \InvalidArgumentException("Tipo de veículo inválido.");
     }
 }

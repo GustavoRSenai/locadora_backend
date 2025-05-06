@@ -262,6 +262,20 @@ $usuario = Auth::getUsuario();
         </div>
     </div>
     <!-- Bootstrap JS -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const select = form.querySelector('select[name="tipo_calculo"]');
+            if (select && (select.value === "" || select.value === "empty")) {
+                e.preventDefault();
+                alert("Por favor, selecione um tipo de veículo válido.");
+            }
+        });
+    });
+    </script>
+
 </body>
 </html>

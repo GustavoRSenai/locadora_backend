@@ -1,0 +1,20 @@
+[
+    {
+        "tipo": "Carro",
+        "modelo": "Ferrari",
+        "placa": "ABC1D23",
+        "disponivel": false
+    },
+    {
+        "tipo": "Moto",
+        "modelo": "BIS",
+        "placa": "ABC5D84",
+        "disponivel": true
+    },
+    {
+        "tipo": "Carro",
+        "modelo": "Lancer",
+        "placa": "AKJ1D94",
+        "disponivel": true
+    }
+]

@@ -1,101 +1,87 @@
 <?php
-// define espaços para organização do código
+// define espaço para organização do código
 namespace Services;
 
-class Auth{ 
+class Auth{
     private array $usuarios = [];
 
-    // Método cronstuctor
-
-    public function __construct()
-    {
+    // Método construtor
+    public function __construct(){
         $this ->carregarUsuarios();
     }
 
-    // Método para carregar os usuários do arquivo JSON
-    private function carregarUsuarios(): void
-    {
-        // Verifica se o arquivo existe e carrega os usuários
-        if (file_exists(ARQUIVO_USUARIOS)) {
-            // Lê o conteúdo do arquivo JSON e decodifica para um array
+    // Método para carregar usuários do arquivo JSON
+    private function carregarUsuarios(): void {
+        
+        // Verificar se existe o arquivo
+        if(file_exists(ARQUIVO_USUARIOS)){
+            // Lê o conteúdo e decodifica o JSON para o array
             $conteudo = json_decode(file_get_contents(ARQUIVO_USUARIOS), true);
 
+            // verificar se é um array
             $this->usuarios = is_array($conteudo) ? $conteudo : [];
         } else {
-            // Se o arquivo não existir, cria usuarios padrão
-            $this->usuarios = [
-
-                [
-                'username' => 'admin',
-                'password' => password_hash('123,', PASSWORD_DEFAULT),
-                'perfil' => 'admin',
+            $this -> usuarios = [               
+               [ 
+                    'username' => 'admin',
+                    'password' => password_hash('123', PASSWORD_DEFAULT),
+                    'perfil' => 'admin'
                 ],
-                [
-                'username' => 'usuario',
-                'password' => password_hash('123', PASSWORD_DEFAULT),
-                'perfil' => 'usuario',
+                [ 
+                    'username' => 'usuario',
+                    'password' => password_hash('123', PASSWORD_DEFAULT),
+                    'perfil' => 'usuario'
                 ]
             ];
-            $this->salvarUsuarios();
+            $this ->salvarUsuarios();
         }
     }
 
-    // Método para salvar os usuários no arquivo JSON
-    private function salvarUsuarios(): void
-    {
+    // função para salvar usuários no arquivo JSON
+    private function salvarUsuarios():void {
         $dir = dirname(ARQUIVO_USUARIOS);
-        // Verifica se o diretório existe, caso contrário cria
-        if (!is_dir($dir)) {
+        
+        if(!is_dir($dir)){
             mkdir($dir, 0777, true);
         }
-        // Salva os usuários no arquivo JSON
         file_put_contents(ARQUIVO_USUARIOS, json_encode($this->usuarios, JSON_PRETTY_PRINT));
     }
 
-    // Método para login
-    public function login(string $username, string $password): bool
-    {
-        // Verifica se o usuário existe e a senha está correta
-        foreach ($this->usuarios as $usuario) {
-            if ($usuario['username'] === $username && password_verify($password, $usuario['password'])) {
-                
+    // Método para realizar login
+    public function login(string $username, string $password): bool{
+
+        foreach ($this->usuarios as $usuario){
+            if ($usuario['username'] === $username && password_verify($password, $usuario['password'])){
                 $_SESSION['auth'] = [
                     'logado' => true,
                     'username' => $username,
-                    'perfil' => $usuario['perfil'],
+                    'perfil' => $usuario['perfil']
                 ];
-                return true; // Login bem-sucedido
+                return true; //login realizado
             }
         }
-        return false;// Login falhou
+        return false; // não realizou login
     }
 
-    public function logout(): void
-    {
+    public function logout():void{
         session_destroy();
     }
 
-    // verifica se o usuário está logado
-    public static function verificarLogin(): bool {
+    // verificar se o usuário está logado
+    public static function verificarLogin():bool{
         return isset($_SESSION['auth']) && $_SESSION['auth']['logado'] === true;
     }
 
-    public static function isPerfil(string $perfil): bool
-    {
+    public static function isPerfil(string $perfil): bool{
         return isset($_SESSION['auth']) && $_SESSION['auth']['perfil'] === $perfil;
     }
 
-    public static function isAdmin(): bool
-    {
+    public static function isAdmin():bool {
         return self::isPerfil('admin');
     }
 
-    public static function getUsuario(): ?array
-    {
-        // retorna os dados da sessao ou nulo se nao existir
+    public static function getUsuario(): ?array {
+        // retorna os dados da sessão ou nulo se não existir
         return $_SESSION['auth'] ?? null;
     }
-
 }
-
-?>
